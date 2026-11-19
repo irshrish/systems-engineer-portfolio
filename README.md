@@ -19,7 +19,7 @@ About, career timeline, project cards (parking kiosk suite, Windows cutting-plan
 
 ## Tech
 
-Hand-written HTML + CSS with a small amount of vanilla JavaScript for the scroll reveals and theme toggle. Design tokens are kept in one block at the top of the file, so the whole colour scheme can be restyled in one place.
+Hand-written HTML + CSS with a small amount of vanilla JavaScript for the scroll reveals. Design tokens are kept in one block at the top of the file, so the whole colour scheme can be restyled in one place.
 
 ## Deploying
 
