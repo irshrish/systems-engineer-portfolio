@@ -909,10 +909,15 @@
   const io = new IntersectionObserver(entries => {
     entries.forEach(e => {
       if (!e.isIntersecting) return;
+      const rootH = e.rootBounds ? e.rootBounds.height : innerHeight;
+      // an element far taller than the viewport can never reach the ratio
+      // (#projects is ~16k px on a phone), so any overlap has to reveal it
+      const reachable = e.boundingClientRect.height * .12 <= rootH;
+      if (reachable && e.intersectionRatio < .12) return;
       e.target.classList.add('on');
       io.unobserve(e.target);
     });
-  }, { threshold: .12, rootMargin: '0px 0px -8% 0px' });
+  }, { threshold: [0, .12], rootMargin: '0px 0px -8% 0px' });
 
   document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 
