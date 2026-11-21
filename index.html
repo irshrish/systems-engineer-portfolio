@@ -52,9 +52,9 @@
     --grad:linear-gradient(115deg,#22d3ee 0%,#6ee7b7 45%,#f5a524 100%);
     --h1-grad:linear-gradient(100deg,#ffffff 15%,#9fe9f7 58%,#ffd79a 100%);
     --panel-grad:linear-gradient(180deg,#080d16 0%,#05070c 100%);
-    --nav-bg:rgba(5,7,12,.72);
-    --nav-bg-tight:rgba(5,7,12,.9);
-    --marquee-bg:rgba(8,12,19,.72);
+    --nav-bg:rgba(5,7,12,.95);
+    --nav-bg-tight:rgba(5,7,12,.98);
+    --marquee-bg:#070b12;
     --marquee-text:#7f93ae;
     --stat-bg:rgba(11,17,25,.6);
     --shot-bg:#080d14;
@@ -71,13 +71,13 @@
   }
   [data-theme="light"]{
     color-scheme:light;
-    --bg:#f5f8fc;
+    --bg:#ffffff;
     --surface:#ffffff;
-    --surface-2:#eaf1f8;
+    --surface-2:#f4f7fb;
     --head:#0a1522;
     --ink:#2c3b4e;
     --grey:#5c6c81;
-    --line:rgba(10,40,75,.13);
+    --line:rgba(10,40,75,.15);
     --accent:#0a8ba4;
     --accent-2:#0e9b6b;
     --accent-3:#b45309;
@@ -90,23 +90,23 @@
     --spot:rgba(10,139,164,.14);
     --grad:linear-gradient(115deg,#0a8ba4 0%,#0e9b6b 45%,#c2710c 100%);
     --h1-grad:linear-gradient(100deg,#0a1522 10%,#0a8ba4 58%,#0e9b6b 100%);
-    --panel-grad:linear-gradient(180deg,#e9f1f9 0%,#f5f8fc 100%);
-    --nav-bg:rgba(245,248,252,.82);
-    --nav-bg-tight:rgba(245,248,252,.95);
-    --marquee-bg:rgba(255,255,255,.7);
+    --panel-grad:linear-gradient(180deg,#ffffff 0%,#fafcff 100%);
+    --nav-bg:rgba(255,255,255,.97);
+    --nav-bg-tight:rgba(255,255,255,.99);
+    --marquee-bg:#ffffff;
     --marquee-text:#5c6c81;
-    --stat-bg:rgba(255,255,255,.75);
-    --shot-bg:#dde7f1;
-    --footer-bg:#e6edf5;
+    --stat-bg:#ffffff;
+    --shot-bg:#f1f5f9;
+    --footer-bg:#f7f9fc;
     --ghost-border:rgba(10,40,75,.22);
     --ghost-text:#1b2a3a;
     --btn-primary-ink:#ffffff;
-    --grid-line:rgba(10,60,110,.06);
-    --aurora-1:rgba(10,139,164,.16);
-    --aurora-2:rgba(194,113,12,.12);
-    --aurora-3:rgba(14,155,107,.12);
-    --aurora-opacity:.7;
-    --shadow:0 22px 46px -32px rgba(10,40,75,.35);
+    --grid-line:rgba(10,60,110,.05);
+    --aurora-1:rgba(10,139,164,.10);
+    --aurora-2:rgba(194,113,12,.07);
+    --aurora-3:rgba(14,155,107,.07);
+    --aurora-opacity:.55;
+    --shadow:0 18px 40px -32px rgba(10,40,75,.30);
   }
   *{margin:0;padding:0;box-sizing:border-box}
   html{scroll-behavior:smooth}
@@ -125,7 +125,6 @@
       radial-gradient(38vmax 26vmax at 18% 12%, var(--aurora-1), transparent 62%),
       radial-gradient(34vmax 24vmax at 84% 8%, var(--aurora-2), transparent 62%),
       radial-gradient(40vmax 30vmax at 55% 88%, var(--aurora-3), transparent 64%);
-    filter:blur(10px);
     animation:drift 26s ease-in-out infinite alternate;
   }
   @keyframes drift{
@@ -154,7 +153,7 @@
   /* ---------- NAVIGATION BAR ---------- */
   nav{
     position:sticky;top:0;z-index:50;
-    background:var(--nav-bg);backdrop-filter:blur(16px) saturate(160%);
+    background:var(--nav-bg);
     border-bottom:1px solid var(--line);
     display:flex;align-items:center;justify-content:space-between;
     padding:.8rem min(6vw,56px);
@@ -224,12 +223,12 @@
     border-bottom:1px solid var(--line);
     padding:6.5rem 0 4.5rem;position:relative;overflow:hidden;
   }
-  /* sweeping scanline across the hero only */
+  /* sweeping scanline — only runs while the hero is actually on screen */
   .hero::after{
     content:"";position:absolute;left:0;right:0;height:180px;top:-200px;pointer-events:none;
     background:linear-gradient(180deg,transparent,var(--spot),transparent);
-    animation:scan 7.5s linear infinite;
   }
+  body.hero-in .hero::after{animation:scan 7.5s linear infinite}
   @keyframes scan{0%{top:-200px}100%{top:110%}}
   .hero .wrap{position:relative;z-index:1;transition:transform .35s cubic-bezier(.2,.8,.2,1)}
   .hero__grid{display:grid;grid-template-columns:minmax(0,1.12fr) minmax(0,.88fr);gap:3.2rem;align-items:center}
@@ -242,11 +241,9 @@
   .hero h1{
     font-size:clamp(2.4rem,5.4vw,4rem);margin:.55rem 0 1.1rem;line-height:1.04;
     letter-spacing:-.045em;font-weight:800;
-    background:var(--h1-grad);background-size:220% 100%;
+    background:var(--h1-grad);
     -webkit-background-clip:text;background-clip:text;color:transparent;
-    animation:hueslide 9s ease-in-out infinite alternate;
   }
-  @keyframes hueslide{0%{background-position:0% 50%}100%{background-position:100% 50%}}
   .hero h1 span{-webkit-text-fill-color:var(--accent-3);color:var(--accent-3)}
   .hero p.tag{max-width:620px;color:var(--ink);font-size:1.1rem}
   .hero .cta{margin-top:2rem;display:flex;gap:.8rem;flex-wrap:wrap}
@@ -299,8 +296,8 @@
   .console::after{
     content:"";position:absolute;left:0;right:0;height:70px;top:-90px;pointer-events:none;
     background:linear-gradient(180deg,transparent,rgba(34,211,238,.10),transparent);
-    animation:scan 5.5s linear infinite;
   }
+  body.hero-in .console::after{animation:scan 5.5s linear infinite}
   .console__bar{display:flex;align-items:center;gap:.4rem;padding-bottom:.7rem;margin-bottom:.75rem;
     border-bottom:1px dashed rgba(140,180,220,.2)}
   .console__bar i{width:9px;height:9px;border-radius:50%;display:block;background:#3d4b5c}
@@ -318,19 +315,26 @@
   html.js .console .line{opacity:0;transform:translateY(5px)}
   html.js .console .line.on{opacity:1;transform:none;transition:opacity .3s ease,transform .3s ease}
 
-  /* ---------- TECH MARQUEE — pinned status bar, always on screen ---------- */
+  /* ---------- TECH TICKER — pinned status bar, always on screen ---------- */
   .marquee{
     position:fixed;left:0;right:0;bottom:0;z-index:40;
     border-top:1px solid var(--line);background:var(--marquee-bg);
-    backdrop-filter:blur(14px) saturate(160%);
-    box-shadow:0 -14px 30px -26px rgba(0,0,0,.6);
+    box-shadow:0 -14px 30px -26px rgba(0,0,0,.35);
     overflow:hidden;padding:.7rem 0;
   }
-  .marquee__track{display:flex;gap:2.6rem;width:max-content;animation:slide 34s linear infinite}
+  /* GPU-composited: transform only, no blur under the moving row */
+  .marquee__track{
+    display:flex;gap:2.6rem;width:max-content;will-change:transform;
+    transform:translate3d(0,0,0);
+    animation:slide 34s linear infinite;
+  }
   .marquee:hover .marquee__track{animation-play-state:paused}
   .marquee span{font-family:var(--mono);font-size:.82rem;letter-spacing:.09em;color:var(--marquee-text);white-space:nowrap;text-transform:uppercase}
   .marquee span::before{content:"◆";color:var(--accent);margin-right:.9rem;font-size:.6rem;vertical-align:middle}
-  @keyframes slide{to{transform:translateX(-50%)}}
+  @keyframes slide{
+    from{transform:translate3d(0,0,0)}
+    to{transform:translate3d(-50%,0,0)}
+  }
 
   /* ---------- ABOUT ---------- */
   .about-grid{display:grid;grid-template-columns:1.5fr 1fr;gap:3rem;align-items:start}
@@ -843,6 +847,14 @@
   }
   addEventListener('scroll', onScroll, { passive: true });
   onScroll();
+
+  /* ---- 2b. run the hero scanlines only while the hero is on screen ---- */
+  const heroEl = document.querySelector('.hero');
+  if (heroEl) {
+    new IntersectionObserver(es => {
+      document.body.classList.toggle('hero-in', es[0].isIntersecting);
+    }, { threshold: 0 }).observe(heroEl);
+  }
 
   /* ---- 3. staggered reveal: sections, cards, skills, timeline ---- */
   const io = new IntersectionObserver(entries => {
